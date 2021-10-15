@@ -1,4 +1,4 @@
-import { Aggregate } from "../../ddd_common/AggregateRoot";
+import { Aggregate } from "../../ddd_common/domain/AggregateRoot";
 import { Task } from "../task/Task";
 import { User } from "../user/User";
 import { BoardName } from "./BoardName";
@@ -16,37 +16,53 @@ export interface BoardProps {
  */
 export class Board extends Aggregate<Board> {
   public readonly id: number | null;
-  private name: BoardName;
+  private _name: BoardName;
   
   /**
    * ボードへの招待メールを確認済みのメンバーの識別子配列
    */
-  private activeMemberIdList: number[];
+  private _activeMemberIdList: number[];
 
   /**
    * ボードへの招待メールを送信済みのメンバーの識別子の配列
    */
-  private invitationMemberIdList: number[];
+  private _invitationMemberIdList: number[];
   
-  private tasks: Task[];
+  private _tasks: Task[];
 
   constructor(props: BoardProps) {
     super();
     this.id = props.id;
-    this.name = new BoardName(props.name);
-    this.activeMemberIdList = props.activeMemberIdList;
-    this.tasks = props.tasks;
+    this._name = new BoardName(props.name);
+    this._activeMemberIdList = props.activeMemberIdList;
+    this._tasks = props.tasks;
+  }
+
+  get name(): BoardName {
+    return this._name;
+  }
+
+  get activeMemberIdList(): number[] {
+    return this._activeMemberIdList;
+  }
+
+  get invitationMemberIdList(): number[] {
+    return this._invitationMemberIdList;
+  }
+
+  get tasks(): Task[] {
+    return this._tasks;
   }
 
   public changeName(newName: string): void {
-    this.name = new BoardName(newName);
+    this._name = new BoardName(newName);
   }
 
   /**
    * メンバーをボードに招待するメソッド
    */
   public inviteMember(userId: number): void {
-    this.invitationMemberIdList.push(userId);
+    this._invitationMemberIdList.push(userId);
     /**
      * TODO: メンバー招待のドメインイベントの保存を実装する可能性あり
      */
@@ -56,12 +72,18 @@ export class Board extends Aggregate<Board> {
    * ユーザが招待メールのリンクをクリックした時に呼ばれるメソッド
    */
   public confirmInvitation(userId: number): void {
-    this.invitationMemberIdList.filter(e => e !== userId);
-    this.activeMemberIdList.push(userId);
+    this._invitationMemberIdList.filter(e => e !== userId);
+    this._activeMemberIdList.push(userId);
   }
 
-  public addTask(id: number | null, taskName: string, assignedUser: User | null, deadline: Date): void {
+  /**
+   * ボードにタスクを追加するメソッド
+   */
+  public addTask(
+    { id, taskName, assignedUser, deadline }:
+    { id: number | null, taskName: string, assignedUser: User | null, deadline: Date }
+  ): void {
     const task = new Task({ id, name: taskName, assignedUser, deadline });
-    this.tasks.push(task);
+    this._tasks.push(task);
   }
 }

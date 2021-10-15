@@ -1,5 +1,5 @@
 import { UserRepository } from "../../../src/domain/user/UserRepository";
-import { CommandHandler } from "../../ddd_common/CommandHandler";
+import { CommandHandler } from "../../ddd_common/usecase/CommandHandler";
 import { BoardRepository } from "../../domain/board/BoardRepository";
 
 export interface CreateTaskCommand {
@@ -10,7 +10,7 @@ export interface CreateTaskCommand {
 }
 
 /**
- * タスクをボードに作成して追加するユースケース(Trelloのレーンにカードを追加するイメージ)
+ * タスクをボードに作成して追加するユースケース(Trelloでレーンにカードを追加するイメージ)
  */
 export class CreateTaskCommandHandler implements CommandHandler<CreateTaskCommand> {
   constructor(
@@ -31,7 +31,9 @@ export class CreateTaskCommandHandler implements CommandHandler<CreateTaskComman
       throw new Error("ボードが見つかりません");
     }
 
-    board.addTask(command.taskName, user, command.deadline);
+    board.addTask({
+      id: null, taskName: command.taskName, assignedUser: user, deadline: command.deadline
+    });
 
     this.boardRepository.store(board);
   }
