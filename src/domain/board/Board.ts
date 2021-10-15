@@ -60,8 +60,8 @@ export class Board extends Aggregate<Board> {
     this.activeMemberIdList.push(userId);
   }
 
-  public addTask(taskName: string, user: User, deadline: Date): void {
-    const task = new Task(null, taskName, user, deadline);
+  public addTask(id: number | null, taskName: string, assignedUser: User | null, deadline: Date): void {
+    const task = new Task({ id, name: taskName, assignedUser, deadline });
     this.tasks.push(task);
   }
 }
