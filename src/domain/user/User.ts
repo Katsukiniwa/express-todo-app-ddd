@@ -1,14 +1,24 @@
-import { Entity } from "../../ddd_common/Entity";
+import { Aggregate } from "../../ddd_common/AggregateRoot";
 
-export class User extends Entity<User> {
+export interface UserProps {
+  id: number | null;
+  name: string;
+  email: string;
+}
+
+/**
+ * @name ユーザ集約
+ * TODO: ユーザアカウントという概念に近いのでリネームする
+ */
+export class User extends Aggregate<User> {
   public readonly id: number | null;
   public readonly name: string;
   public readonly email: string;
 
-  constructor(id: number | null, name: string, email: string) {
+  constructor(props: UserProps) {
     super();
-    this.id = id;
-    this.name = name;
-    this.email = email;
+    this.id = props.id;
+    this.name = props.name;
+    this.email = props.email;
   }
 }
