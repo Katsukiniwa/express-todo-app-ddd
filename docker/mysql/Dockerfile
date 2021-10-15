@@ -1,0 +1,3 @@
+FROM mysql:5.7
+
+ENV HOST 0.0.0.0

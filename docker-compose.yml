@@ -1,0 +1,52 @@
+version: "3"
+services:
+  db:
+    build: ./docker/mysql
+    container_name: db
+    restart: always
+    hostname: db
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: todo_sample
+      MYSQL_USER: todo_sample
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+
+  app:
+    container_name: app
+    image: app:1.0.0
+    stdin_open: true
+    tty: true
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/app/development/Dockerfile
+    environment:
+      DATABASE_URL: mysql://todo_sample:password@172.17.0.1:3306/todo_sample
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - sockets:/app/tmp/sockets
+    depends_on:
+      - app
+
+volumes:
+  sockets:
