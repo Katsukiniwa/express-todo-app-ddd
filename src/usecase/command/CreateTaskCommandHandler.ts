@@ -1,5 +1,3 @@
-import { Task } from "../../../src/domain/task/Task";
-import { TaskRepository } from "../../../src/domain/task/TaskRepository";
 import { UserRepository } from "../../../src/domain/user/UserRepository";
 import { CommandHandler } from "../../ddd_common/CommandHandler";
 import { BoardRepository } from "../../domain/board/BoardRepository";
@@ -11,9 +9,10 @@ export interface CreateTaskCommand {
   boardId: number;
 }
 
-export class CreateTaskCommandHandler
-  implements CommandHandler<CreateTaskCommand>
-{
+/**
+ * タスクをボードに作成して追加するユースケース(Trelloのレーンにカードを追加するイメージ)
+ */
+export class CreateTaskCommandHandler implements CommandHandler<CreateTaskCommand> {
   constructor(
     private boardRepository: BoardRepository,
     private userRepository: UserRepository
@@ -21,6 +20,11 @@ export class CreateTaskCommandHandler
 
   public handle(command: CreateTaskCommand): void {
     const user = this.userRepository.findById(command.userId);
+
+    if (user == null) {
+      throw new Error("ユーザが見つかりません");
+    }
+
     const board = this.boardRepository.findById(command.boardId);
 
     if (board == null) {
