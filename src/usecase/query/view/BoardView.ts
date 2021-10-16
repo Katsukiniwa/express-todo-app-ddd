@@ -21,9 +21,13 @@ export interface BoardViewProps {
 export class BoardView {
   public readonly id: number;
   public readonly name: string;
+  public readonly activeMemberList: Member[];
+  public readonly taskList: Task[];
 
   constructor(props: BoardViewProps) {
     this.id = props.id;
     this.name = props.boardName;
+    this.activeMemberList = props.activeMemberList;
+    this.taskList = props.taskList;
   }
 }
