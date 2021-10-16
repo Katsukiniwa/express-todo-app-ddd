@@ -10,9 +10,10 @@ export interface CreateTaskCommand {
 }
 
 /**
- * タスクをボードに作成して追加するユースケース(Trelloでレーンにカードを追加するイメージ)
+ * ボードにタスクを追加するユースケース(Trelloでレーンにカードを追加するイメージ)
+ * CRUD指向だとCreateTaskとかになりがち
  */
-export class CreateTaskCommandHandler implements CommandHandler<CreateTaskCommand> {
+export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCommand> {
   constructor(
     private boardRepository: BoardRepository,
     private userRepository: UserRepository
