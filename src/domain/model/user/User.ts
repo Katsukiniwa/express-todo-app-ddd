@@ -3,6 +3,7 @@ import { Aggregate } from "../../../ddd_common/domain/AggregateRoot";
 export interface UserProps {
   id: number | null;
   name: string;
+  icon: string;
   email: string;
 }
 
@@ -12,13 +13,15 @@ export interface UserProps {
  */
 export class User extends Aggregate<User> {
   public readonly id: number | null;
-  public readonly name: string;
-  public readonly email: string;
+  private _name: string;
+  private _icon: string;
+  private _email: string;
 
   constructor(props: UserProps) {
     super();
     this.id = props.id;
-    this.name = props.name;
-    this.email = props.email;
+    this._name = props.name;
+    this._icon = props.icon;
+    this._email = props.email;
   }
 }
