@@ -80,10 +80,10 @@ export class Board extends Aggregate<Board> {
    * ボードにタスクを追加するメソッド
    */
   public addTask(
-    { id, taskName, assignedUser, deadline }:
-    { id: number | null, taskName: string, assignedUser: User | null, deadline: Date }
+    { id, taskName, assignedUser, deadline, point }:
+    { id: number | null, taskName: string, assignedUser: User | null, deadline: Date, point: number }
   ): void {
-    const task = new Task({ id, name: taskName, assignedUser, deadline });
+    const task = new Task({ id, name: taskName, assignedUser, deadline, point });
     this._tasks.push(task);
   }
 }

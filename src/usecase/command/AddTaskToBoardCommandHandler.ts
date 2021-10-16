@@ -7,10 +7,12 @@ export interface CreateTaskCommand {
   deadline: Date;
   userId: number;
   boardId: number;
+  point: number;
 }
 
 /**
- * ボードにタスクを追加するユースケース(Trelloでレーンにカードを追加するイメージ)
+ * ボードにタスクを追加するユースケース
+ * Trelloでレーンにカードを追加するイメージ
  * CRUD指向だとCreateTaskとかになりがち
  */
 export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCommand> {
@@ -33,7 +35,11 @@ export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCo
     }
 
     board.addTask({
-      id: null, taskName: command.taskName, assignedUser: user, deadline: command.deadline
+      id: null,
+      taskName: command.taskName,
+      assignedUser: user,
+      deadline: command.deadline,
+      point: command.point,
     });
 
     this.boardRepository.store(board);
