@@ -1,4 +1,4 @@
-import { UserRepository } from "../../../src/domain/model/user/UserRepository";
+import { UserRepository } from "../../domain/model/user/UserRepository";
 import { CommandHandler } from "../../ddd_common/usecase/CommandHandler";
 import { BoardRepository } from "../../domain/model/board/BoardRepository";
 
