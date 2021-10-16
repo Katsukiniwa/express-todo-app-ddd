@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Board } from "../../domain/board/Board";
-import { BoardRepository } from "../../domain/board/BoardRepository";
+import { Board } from "../../domain/model/board/Board";
+import { BoardRepository } from "../../domain/model/board/BoardRepository";
 
 export class PrismaBoardRepository implements BoardRepository {
   private prisma: PrismaClient;

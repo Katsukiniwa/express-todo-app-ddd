@@ -1,4 +1,4 @@
-import { Entity } from "../../ddd_common/domain/Entity";
+import { Entity } from "../../../ddd_common/domain/Entity";
 import { User } from "../user/User";
 import { TaskName } from "./TaskName";
 

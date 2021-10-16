@@ -1,4 +1,4 @@
-import { ValueObject } from "../../ddd_common/domain/ValueObject";
+import { ValueObject } from "../../../ddd_common/domain/ValueObject";
 
 export class BoardMemberName extends ValueObject<BoardMemberName> {
   public readonly name: string;

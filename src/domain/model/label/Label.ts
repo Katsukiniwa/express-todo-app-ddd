@@ -1,4 +1,4 @@
-import { Entity } from "../../ddd_common/domain/Entity";
+import { Entity } from "../../../ddd_common/domain/Entity";
 
 export interface LabelProps {
   id: number | null;

@@ -1,4 +1,4 @@
-import { Entity } from "../../ddd_common/domain/Entity";
+import { Entity } from "../../../ddd_common/domain/Entity";
 import { BoardMemberName } from "./BoardMemberName";
 
 export class BoardMember extends Entity<BoardMember> {

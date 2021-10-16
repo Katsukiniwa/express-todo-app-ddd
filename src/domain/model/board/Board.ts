@@ -1,4 +1,4 @@
-import { Aggregate } from "../../ddd_common/domain/AggregateRoot";
+import { Aggregate } from "../../../ddd_common/domain/AggregateRoot";
 import { Task } from "../task/Task";
 import { User } from "../user/User";
 import { BoardName } from "./BoardName";

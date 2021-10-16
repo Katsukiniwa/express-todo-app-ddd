@@ -1,4 +1,4 @@
-import { Aggregate } from "../../ddd_common/domain/AggregateRoot";
+import { Aggregate } from "../../../ddd_common/domain/AggregateRoot";
 
 export interface UserProps {
   id: number | null;

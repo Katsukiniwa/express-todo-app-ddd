@@ -1,6 +1,6 @@
-import { UserRepository } from "../../../src/domain/user/UserRepository";
+import { UserRepository } from "../../../src/domain/model/user/UserRepository";
 import { CommandHandler } from "../../ddd_common/usecase/CommandHandler";
-import { BoardRepository } from "../../domain/board/BoardRepository";
+import { BoardRepository } from "../../domain/model/board/BoardRepository";
 
 export interface CreateTaskCommand {
   taskName: string;
