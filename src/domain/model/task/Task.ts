@@ -7,6 +7,7 @@ export interface TaskProps {
   name: string;
   assignedUser: User | null;
   deadline: Date;
+  point: number;
 }
 
 /**
@@ -15,15 +16,50 @@ export interface TaskProps {
  */
 export class Task extends Entity<Task> {
   public readonly id: number | null;
-  public readonly name: TaskName;
-  public readonly assignedUser: User | null;
-  public readonly deadline: Date;
+  private _name: TaskName;
+
+  /**
+   * @name 担当者
+   */
+  private _assignedUser: User | null;
+  
+  /**
+   * @name 締め切り
+   * @memo 締め切りというValue Objectに切り出せる
+   */
+  private _deadline: Date;
+  
+  /**
+   * @name ポイント
+   * @description スクラムにおける消化ポイントの概念
+   */
+  private point: number;
 
   constructor(props: TaskProps) {
     super();
     this.id = props.id;
-    this.name = new TaskName(props.name);
-    this.assignedUser = props.assignedUser;
-    this.deadline = props.deadline;
+    this._name = new TaskName(props.name);
+    this._assignedUser = props.assignedUser;
+    this._deadline = props.deadline;
+  }
+
+  /**
+   * 担当者のいないタスクにユーザをアサインするメソッド
+   */
+  public assignUser(user: User): void {
+    if (this._assignedUser != null) {
+      throw new Error("既に別のユーザがアサインされています");
+    }
+    this._assignedUser = user;
+  }
+
+  /**
+   * 担当者を別のユーザに変更するメソッド
+   */
+  public changeAssignedUser(user: User): void {
+    if (this._assignedUser == null) {
+      throw new Error("ユーザがアサインされていません");
+    }
+    this._assignedUser = user;
   }
 }
