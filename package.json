@@ -21,7 +21,8 @@
     "express": "4.17.1",
     "express-validator": "6.13.0",
     "prisma": "^3.2.1",
-    "shallow-equal-object": "^1.1.1"
+    "shallow-equal-object": "^1.1.1",
+    "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
     "@types/bcrypt-nodejs": "10.0.28-alpha",

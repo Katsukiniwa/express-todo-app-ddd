@@ -21,14 +21,14 @@ export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCo
     private userRepository: UserRepository
   ) {}
 
-  public handle(command: CreateTaskCommand): void {
+  public async handle(command: CreateTaskCommand): Promise<void> {
     const user = this.userRepository.findById(command.userId);
 
     if (user == null) {
       throw new Error("ユーザが見つかりません");
     }
 
-    const board = this.boardRepository.findById(command.boardId);
+    const board = await this.boardRepository.findById(command.boardId);
 
     if (board == null) {
       throw new Error("ボードが見つかりません");
