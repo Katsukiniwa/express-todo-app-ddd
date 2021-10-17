@@ -31,9 +31,11 @@ export class Task extends Entity<Task> {
   
   /**
    * @name ポイント
-   * @description スクラムにおける消化ポイントの概念
+   * @description スクラムにおける消化にかかるポイントの概念
+   * @memo マイナスになりえない・演算ロジックが発生する事からValue Objectに切り出せる
+   * 消化予定ポイントというもっと明確な命名に変更する
    */
-  private point: number;
+  private _point: number;
 
   constructor(props: TaskProps) {
     super();
@@ -41,6 +43,14 @@ export class Task extends Entity<Task> {
     this._name = new TaskName(props.name);
     this._assignedUser = props.assignedUser;
     this._deadline = props.deadline;
+    this._point = props.point;
+  }
+
+  /**
+   * ポイントを変更するメソッド
+   */
+  public changePoint(point: number): void {
+    this._point = point;
   }
 
   /**
