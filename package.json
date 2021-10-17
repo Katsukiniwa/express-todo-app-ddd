@@ -5,8 +5,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/app.ts",
-    "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate dev",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev",
     "seed": "ts-node prisma/seed.ts",
     "serve": "node dist/server.js",
     "start": "npm run serve",
