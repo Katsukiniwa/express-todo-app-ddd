@@ -6,3 +6,67 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model boards {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  created_at   DateTime       @default(now()) @db.Timestamp(6)
+  updated_at   DateTime       @default(now()) @db.Timestamp(6)
+  tasks        tasks[]
+  participants participants[]
+}
+
+model participants {
+  id         Int      @id @default(autoincrement())
+  board_id   Int
+  user_id    Int
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+  board      boards   @relation(fields: [board_id], references: [id])
+  user       users    @relation(fields: [user_id], references: [id])
+}
+
+model tasks {
+  id               Int        @id @default(autoincrement())
+  board_id         Int
+  name             String
+  assigned_user_id Int
+  deadline         DateTime   @default(now())
+  point            Int
+  created_at       DateTime   @default(now()) @db.Timestamp(6)
+  updated_at       DateTime   @default(now()) @db.Timestamp(6)
+  board            boards     @relation(fields: [board_id], references: [id])
+  labeling         labeling[]
+  assigned_user    users?      @relation(fields: [assigned_user_id], references: [id])
+}
+
+model labels {
+  id         Int        @id @default(autoincrement())
+  name       String
+  name_en    String
+  created_at DateTime   @default(now()) @db.Timestamp(6)
+  updated_at DateTime   @default(now()) @db.Timestamp(6)
+  labeling   labeling[]
+}
+
+model labeling {
+  id         Int      @id @default(autoincrement())
+  task_id    Int
+  label_id   Int
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+  task       tasks    @relation(fields: [task_id], references: [id])
+  label      labels   @relation(fields: [label_id], references: [id])
+}
+
+model users {
+  id              Int            @id @default(autoincrement())
+  name            String
+  icon            String
+  email           String
+  hashed_password String
+  created_at      DateTime       @default(now()) @db.Timestamp(6)
+  updated_at      DateTime       @default(now()) @db.Timestamp(6)
+  participants    participants[]
+  tasks           tasks[]
+}
