@@ -24,6 +24,10 @@ export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCo
   public async handle(command: CreateTaskCommand): Promise<void> {
     const user = this.userRepository.findById(command.userId);
 
+    /**
+     * nullの場合のエラー投げるのはリポジトリ側でやって良い気がする
+     * あまりユースケース層(アプリケーション層)でエラーを投げたくない(純粋な業務ロジックの実行に専念させたい)
+     */
     if (user == null) {
       throw new Error("ユーザが見つかりません");
     }

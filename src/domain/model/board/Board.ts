@@ -81,7 +81,7 @@ export class Board extends Aggregate<Board> {
    */
   public addTask(
     { id, taskName, assignedUser, deadline, point }:
-    { id: number | null, taskName: string, assignedUser: User | null, deadline: Date, point: number }
+    { id: null, taskName: string, assignedUser: User | null, deadline: Date, point: number }
   ): void {
     const task = new Task({ id, name: taskName, assignedUser, deadline, point });
     this._tasks.push(task);
