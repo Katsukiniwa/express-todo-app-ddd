@@ -28,6 +28,9 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
       }
     });
 
+    /**
+     * TODO: タスクりすと・参加者リスト・タスクの合計ポイントを取得するよう実装する
+     */
     return new BoardView({
       id: prismaBoard.id,
       name: prismaBoard.name,

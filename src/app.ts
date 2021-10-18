@@ -5,11 +5,8 @@ const app = express();
 
 app.use(boardRouter);
 
-app.get("/", (_request, response) => {
-  return response.json({
-    message: "Hello World",
-    port: process.env.PORT,
-  });
+app.get("/", (request, response) => {
+  return response.json({ message: "Hello World" });
 });
 
 app.listen(Number(process.env.PORT), () => {
