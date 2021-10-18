@@ -13,16 +13,16 @@ async function main() {
   });
   const sampleBoard = await prisma.boards.create({
     data: {
-      name: "サンプル"
+      name: "サンプルボード"
     }
   });
-  const sampleBoardParticipants = await prisma.participants.create({
+  await prisma.participants.create({
     data: {
       user_id: bob.id,
       board_id: sampleBoard.id,
     }
   });
-  const sampleTask = await prisma.tasks.create({
+  await prisma.tasks.create({
     data: {
       name: "Fix CSS bug",
       deadline: new Date(),
@@ -40,7 +40,24 @@ async function main() {
       }
     },
   });
-  console.log(sampleBoardParticipants);
+  await prisma.tasks.create({
+    data: {
+      name: "create new function",
+      deadline: new Date(),
+      content: "user need",
+      point: 2,
+      board: {
+        connect: {
+          id: sampleBoard.id,
+        }
+      },
+      assigned_user: {
+        connect: {
+          id: bob.id,
+        }
+      }
+    },
+  });
 }
 
 main()

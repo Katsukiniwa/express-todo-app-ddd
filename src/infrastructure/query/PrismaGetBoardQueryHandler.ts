@@ -28,15 +28,27 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
       }
     });
 
-    /**
-     * TODO: タスクりすと・参加者リスト・タスクの合計ポイントを取得するよう実装する
-     */
+    const taskList = prismaBoard.tasks.map(e => ({
+      name: e.name,
+      assignedUser: { id: e.assigned_user.id, name: e.assigned_user.name, icon: e.assigned_user.icon },
+      deadline: e.deadline,
+      point: e.point,
+    }));
+
+    const activeMemberList = prismaBoard.participants.map(e => ({
+      id: e.id,
+      name: e.user.name,
+      icon: e.user.icon,
+    }));
+
+    const pointSum = taskList.reduce((n, { point }) => n + point, 0);
+
     return new BoardView({
       id: prismaBoard.id,
       name: prismaBoard.name,
-      taskList: [],
-      activeMemberList: [],
-      pointSum: 0,
+      taskList,
+      activeMemberList,
+      pointSum,
     });
   }
 }
