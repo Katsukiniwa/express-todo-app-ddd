@@ -8,7 +8,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:seed": "ts-node prisma/seed.ts",
-    "serve": "node dist/server.js",
+    "serve": "node dist/app.js",
     "start": "npm run serve",
     "test": "jest"
   },
