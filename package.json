@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.2.1",
-    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "1.19.0",
     "dotenv": "10.0.0",
     "errorhandler": "1.5.1",
@@ -25,7 +25,7 @@
     "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
-    "@types/bcrypt-nodejs": "10.0.28-alpha",
+    "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "1.19.1",
     "@types/concurrently": "6.3.0",
     "@types/errorhandler": "1.5.0",
