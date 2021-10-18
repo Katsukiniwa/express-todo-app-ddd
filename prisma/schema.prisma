@@ -30,6 +30,7 @@ model tasks {
   id               Int        @id @default(autoincrement())
   board_id         Int
   name             String
+  content          String
   assigned_user_id Int
   deadline         DateTime   @default(now())
   point            Int
