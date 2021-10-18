@@ -28,6 +28,7 @@ services:
       context: .
       dockerfile: ./docker/app/development/Dockerfile
     environment:
+      PORT: 8080
       DATABASE_URL: mysql://root:password@db:3306/todo_sample
     ports:
       - "8080:8080"

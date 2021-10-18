@@ -25,4 +25,4 @@ RUN npx prisma generate
 
 RUN npm run build
 
-ENTRYPOINT ["docker/app/development/docker-entrypoint.sh"]
+# ENTRYPOINT ["docker/app/development/docker-entrypoint.sh"]
