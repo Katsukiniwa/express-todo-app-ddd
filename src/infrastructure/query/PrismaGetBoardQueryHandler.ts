@@ -27,6 +27,7 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
         }
       }
     });
+
     return new BoardView({
       id: prismaBoard.id,
       name: prismaBoard.name,

@@ -5,6 +5,7 @@ export class BoardController {
   async getBoard(boardId: number): Promise<BoardView> {
     const usecase = new PrismaGetBoardQueryHandler();
     const result = await usecase.handle(boardId);
+
     return result;
   }
 }
