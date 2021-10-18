@@ -1,5 +1,4 @@
 import { PrismaClient } from ".prisma/client";
-import { Board } from "../../domain/model/board/Board";
 import { GetBoardQueryHandler } from "../../usecase/query/GetBoardQueryHandler";
 import { BoardView } from "../../usecase/query/view/BoardView";
 
@@ -10,9 +9,30 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
     this.prisma = new PrismaClient();
   }
 
-  handle(): BoardView {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return new Board();
+  async handle(boardId: number): Promise<BoardView> {
+    const prismaBoard = await this.prisma.boards.findUnique({
+      where: {
+        id: boardId,
+      },
+      include: {
+        tasks: {
+          include: {
+            assigned_user: true,
+          }
+        },
+        participants: {
+          include: {
+            user: true,
+          }
+        }
+      }
+    });
+    return new BoardView({
+      id: prismaBoard.id,
+      name: prismaBoard.name,
+      taskList: [],
+      activeMemberList: [],
+      pointSum: 0,
+    });
   }
 }

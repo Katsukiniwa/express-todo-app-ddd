@@ -2,9 +2,9 @@ import { PrismaGetBoardQueryHandler } from "../infrastructure/query/PrismaGetBoa
 import { BoardView } from "../usecase/query/view/BoardView";
 
 export class BoardController {
-  getBoard(): BoardView {
+  async getBoard(boardId: number): Promise<BoardView> {
     const usecase = new PrismaGetBoardQueryHandler();
-    const result = usecase.handle();
+    const result = await usecase.handle(boardId);
     return result;
   }
 }

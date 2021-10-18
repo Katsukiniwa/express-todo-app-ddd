@@ -1,0 +1,1 @@
+export { boardRouter } from "./BoardRouter";

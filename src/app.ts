@@ -13,12 +13,14 @@ app.get("/", (_request, response) => {
   });
 });
 
-const controller = new BoardController();
+// const controller = new BoardController();
 
-app.get("/boards/:id", (_request, response) => {
-  const result = controller.getBoard();
-  return response.json({ message: "board", result });
-});
+// app.get("/boards/:id", (request, response, next) => {
+//   (async () => {
+//     const result = await controller.getBoard(Number(request.params.id));
+//     return response.json({ message: "board", result });
+//   })().catch(next);
+// });
 
 app.listen(Number(process.env.PORT), () => {
   console.log(`listen on ${process.env.PORT} PORT`);

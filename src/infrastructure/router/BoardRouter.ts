@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { BoardController } from "../../presentation/BoardController";
 
-const router = Router();
+export const boardRouter = Router();
 
 const controller = new BoardController();
 
-router.get("/boards/:id", (request, response) => {
-  const result = controller.getBoard();
-  return response.json({ message: "board", result });
+boardRouter.get("/boards/:id", (request, response, next) => {
+  (async () => {
+    const result = await controller.getBoard(Number(request.params.id));
+    return response.json({ message: "board", result });
+  })().catch(next);
 });
