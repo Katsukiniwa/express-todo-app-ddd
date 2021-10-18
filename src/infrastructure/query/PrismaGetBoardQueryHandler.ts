@@ -41,6 +41,9 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
       icon: e.user.icon,
     }));
 
+    /**
+     * TODO: ポイントの合計値という重要なロジックはクエリが担って良いのだろうか？(Read Model Updaterの出番)
+     */
     const pointSum = taskList.reduce((n, { point }) => n + point, 0);
 
     return new BoardView({

@@ -2,6 +2,20 @@
 
 Express, TypeScriptでシンプルなオニオンアーキテクチャを説明するリポジトリ
 
+## 環境構築
+
+```bash
+$ git clone git@github.com:Katsukiniwa/express-toto-app-ddd.git
+$ docker compose up --build -d             # コンテナを立ち上げ
+$ docker compose exec app bash             # appコンテナに入る
+$ npm run prisma:migrate                   # マイグレーションを実行
+$ npm run prisma:seed                      # シードデータの流し込み
+$ npm run dev                              # アプリケーションサーバの立ち上げ
+$ curl -H "accept: application/json" \
+     -H "Content-Type: application/json" \
+     -XGET http://localhost:8080/boards/1  # idが1のボードを取得
+```
+
 ## 参考にしたリポジトリ・記事
 
 [ddd-forum](https://github.com/stemmlerjs/ddd-forum)
