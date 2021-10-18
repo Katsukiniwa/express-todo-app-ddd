@@ -9,6 +9,7 @@ export class CookieUserAuthenticationService implements UserAuthenticationServic
   constructor() {
     this.prisma = new PrismaClient();
   }
+
   async authenticateFrom(userId: number, userIdentity: string): Promise<User> {
     const prismaUser = await this.prisma.users.findUnique({
       where: {
