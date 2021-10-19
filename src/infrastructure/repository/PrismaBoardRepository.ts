@@ -52,6 +52,64 @@ export class PrismaBoardRepository implements BoardRepository {
   }
 
   async store(board: Board): Promise<void> {
-    console.log(board);
+    const prismaBoard = await this.prisma.boards.findUnique({
+      where: {
+        id: board.id,
+      }
+    });
+
+    const prismaBoardParticipants = board.activeMemberIdList.map(e => {
+      return {
+        where: {
+          id: e,
+        },
+        create: {
+          user_id: e,
+        }
+      };
+    });
+
+    const prismaBoardTaskList = board.tasks.map(e => {
+      return {
+        where: {
+          id: 1,
+        },
+        create: {
+          name: "",
+          content: "",
+          deadline: new Date(),
+          point: 1,
+        }
+      };
+    });
+
+    if(prismaBoard == null) {
+      await this.prisma.boards.create({
+        data: {
+          name: board.name.value,
+          participants: {
+            connectOrCreate: prismaBoardParticipants,
+          },
+          tasks: {
+            connectOrCreate: prismaBoardTaskList,
+          }
+        }
+      });
+    } else {
+      await this.prisma.boards.update({
+        where: {
+          id: board.id,
+        },
+        data: {
+          name: board.name.value,
+          participants: {
+            connectOrCreate: prismaBoardParticipants,
+          },
+          tasks: {
+            connectOrCreate: prismaBoardTaskList,
+          }
+        }
+      });
+    }
   }
 }
