@@ -1,9 +1,12 @@
 import { Router } from "express";
+import { PrismaGetBoardQueryHandler } from "../../infrastructure/query/PrismaGetBoardQueryHandler";
 import { BoardController } from "../../presentation/BoardController";
 
 export const boardRouter = Router();
 
-const controller = new BoardController();
+const controller = new BoardController(
+  new PrismaGetBoardQueryHandler()
+);
 
 boardRouter.use((request, response, next) => {
   (async () => {

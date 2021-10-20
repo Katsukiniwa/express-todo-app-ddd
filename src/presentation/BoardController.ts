@@ -1,10 +1,15 @@
-import { PrismaGetBoardQueryHandler } from "../infrastructure/query/PrismaGetBoardQueryHandler";
+import { GetBoardQueryHandler } from "../usecase/query/GetBoardQueryHandler";
 import { BoardView } from "../usecase/query/view/BoardView";
 
 export class BoardController {
+  private getBoardQueryHandler: GetBoardQueryHandler;
+
+  constructor(getBoardQueryHandler: GetBoardQueryHandler) {
+    this.getBoardQueryHandler = getBoardQueryHandler;
+  }
+
   async getBoard(boardId: number): Promise<BoardView> {
-    const usecase = new PrismaGetBoardQueryHandler();
-    const result = await usecase.handle(boardId);
+    const result = this.getBoardQueryHandler.handle(boardId);
 
     return result;
   }
