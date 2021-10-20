@@ -1,10 +1,10 @@
 import { ValueObject } from "../../../ddd_common/domain/ValueObject";
 
 export class TaskName extends ValueObject<TaskName> {
-  public readonly name: string;
+  public readonly value: string;
 
   constructor(name: string) {
     super();
-    this.name = name;
+    this.value = name;
   }
 }
