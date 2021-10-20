@@ -46,6 +46,22 @@ export class Task extends Entity<Task> {
     this._point = props.point;
   }
 
+  get name(): TaskName {
+    return this._name;
+  }
+
+  get assignedUser(): User {
+    return this._assignedUser;
+  }
+
+  get deadline(): Date {
+    return this._deadline;
+  }
+
+  get point(): number {
+    return this._point;
+  }
+
   /**
    * ポイントを変更するメソッド
    */
