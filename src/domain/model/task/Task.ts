@@ -5,6 +5,7 @@ import { TaskName } from "./TaskName";
 export interface TaskProps {
   id: number | null;
   name: string;
+  content: string;
   assignedUser: User | null;
   deadline: Date;
   point: number;
@@ -17,6 +18,7 @@ export interface TaskProps {
 export class Task extends Entity<Task> {
   public readonly id: number | null;
   private _name: TaskName;
+  private _content: string;
 
   /**
    * @name 担当者
@@ -48,6 +50,10 @@ export class Task extends Entity<Task> {
 
   get name(): TaskName {
     return this._name;
+  }
+
+  get content(): string {
+    return this._content;
   }
 
   get assignedUser(): User {
