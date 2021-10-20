@@ -43,6 +43,7 @@ export class PrismaBoardRepository implements BoardRepository {
           return new Task({
           id: e.id,
           name: e.name,
+          content: e.content,
           assignedUser,
           point: e.point,
           deadline: e.deadline
@@ -75,10 +76,10 @@ export class PrismaBoardRepository implements BoardRepository {
           id: 1,
         },
         create: {
-          name: "",
-          content: "",
-          deadline: new Date(),
-          point: 1,
+          name: e.name.value,
+          content: e.content,
+          deadline: e.deadline,
+          point: e.point,
         }
       };
     });
