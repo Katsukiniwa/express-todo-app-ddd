@@ -26,6 +26,10 @@ export class PrismaBoardRepository implements BoardRepository {
       }
     });
 
+    if (prismaBoard == null) {
+      throw new Error("board not found");
+    }
+
     return new Board({
       id,
       name: prismaBoard.name,
@@ -53,64 +57,66 @@ export class PrismaBoardRepository implements BoardRepository {
   }
 
   async store(board: Board): Promise<void> {
-    const prismaBoard = await this.prisma.boards.findUnique({
-      where: {
-        id: board.id,
-      }
-    });
-
-    const prismaBoardParticipants = board.activeMemberIdList.map(e => {
-      return {
-        where: {
-          id: e,
-        },
-        create: {
-          user_id: e,
-        }
-      };
-    });
-
-    const prismaBoardTaskList = board.tasks.map(e => {
-      return {
-        where: {
-          id: 1,
-        },
-        create: {
-          name: e.name.value,
-          content: e.content,
-          deadline: e.deadline,
-          point: e.point,
-        }
-      };
-    });
-
-    if(prismaBoard == null) {
-      await this.prisma.boards.create({
-        data: {
-          name: board.name.value,
-          participants: {
-            connectOrCreate: prismaBoardParticipants,
-          },
-          tasks: {
-            connectOrCreate: prismaBoardTaskList,
-          }
-        }
-      });
-    } else {
-      await this.prisma.boards.update({
+    if (board.id != null) {
+      const prismaBoard = await this.prisma.boards.findUnique({
         where: {
           id: board.id,
-        },
-        data: {
-          name: board.name.value,
-          participants: {
-            connectOrCreate: prismaBoardParticipants,
-          },
-          tasks: {
-            connectOrCreate: prismaBoardTaskList,
-          }
         }
       });
+  
+      const prismaBoardParticipants = board.activeMemberIdList.map(e => {
+        return {
+          where: {
+            id: e,
+          },
+          create: {
+            user_id: e,
+          }
+        };
+      });
+  
+      const prismaBoardTaskList = board.tasks.map(e => {
+        return {
+          where: {
+            id: 1,
+          },
+          create: {
+            name: e.name.value,
+            content: e.content,
+            deadline: e.deadline,
+            point: e.point,
+          }
+        };
+      });
+
+      if (prismaBoard == null) {
+        await this.prisma.boards.create({
+          data: {
+            name: board.name.value,
+            participants: {
+              connectOrCreate: prismaBoardParticipants,
+            },
+            tasks: {
+              connectOrCreate: prismaBoardTaskList,
+            }
+          }
+        });
+      } else {
+        await this.prisma.boards.update({
+          where: {
+            id: board.id,
+          },
+          data: {
+            name: board.name.value,
+            participants: {
+              connectOrCreate: prismaBoardParticipants,
+            },
+            tasks: {
+              connectOrCreate: prismaBoardTaskList,
+            }
+          }
+        });
+      }
     }
   }
 }
