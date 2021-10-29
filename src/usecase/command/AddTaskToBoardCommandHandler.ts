@@ -2,27 +2,20 @@ import { UserRepository } from "../../domain/model/user/UserRepository";
 import { CommandHandler } from "../../ddd_common/usecase/CommandHandler";
 import { BoardRepository } from "../../domain/model/board/BoardRepository";
 import { User } from "../../domain/model/user/User";
-
-export interface CreateTaskCommand {
-  taskName: string;
-  deadline: Date;
-  userId?: number;
-  boardId: number;
-  point: number;
-}
+import { AddTaskToBoardCommand } from "./AddTaskToBoardCommand";
 
 /**
  * ボードにタスクを追加するユースケース
  * Trelloでレーンにカードを追加するイメージ
  * CRUD指向だとCreateTaskとかになりがち
  */
-export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCommand> {
+export class AddTaskToBoardCommandHandler implements CommandHandler<AddTaskToBoardCommand> {
   constructor(
     private boardRepository: BoardRepository,
     private userRepository: UserRepository
   ) {}
 
-  public async handle(command: CreateTaskCommand): Promise<void> {
+  public async handle(command: AddTaskToBoardCommand): Promise<void> {
     const board = await this.boardRepository.findById(command.boardId);
 
     if (board == null) {
@@ -46,6 +39,7 @@ export class AddTaskToBoardCommandHandler implements CommandHandler<CreateTaskCo
     board.addTask({
       id: null,
       taskName: command.taskName,
+      content: command.content,
       assignedUser,
       deadline: command.deadline,
       point: command.point,
