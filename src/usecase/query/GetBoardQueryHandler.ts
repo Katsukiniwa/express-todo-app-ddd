@@ -1,5 +1,5 @@
-import { BoardView } from "./view/BoardView";
+import { BoardView } from './view/BoardView'
 
 export interface GetBoardQueryHandler {
-  handle(boardId: number): Promise<BoardView>;
+  handle(boardId: number): Promise<BoardView>
 }

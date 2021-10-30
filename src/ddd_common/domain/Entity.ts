@@ -1,7 +1,7 @@
 export abstract class Entity<T> {
-  abstract id: number | null;
+  abstract id: number | null
 
   public equal(that: Entity<T>): boolean {
-    return this.id === that.id;
+    return this.id === that.id
   }
 }

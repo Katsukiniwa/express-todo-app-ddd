@@ -1,8 +1,8 @@
-import { Entity } from "../../../ddd_common/domain/Entity";
+import { Entity } from '../../../ddd_common/domain/Entity'
 
 export interface LabelProps {
-  id: number | null;
-  name: string;
+  id: number | null
+  name: string
 }
 
 /**
@@ -10,16 +10,16 @@ export interface LabelProps {
  * @description ラベルはカードに複数付与できる
  */
 export class Label extends Entity<Label> {
-  public readonly id: number | null;
-  private _name: string;
+  public readonly id: number | null
+  private _name: string
 
   constructor(props: LabelProps) {
-    super();
-    this.id = props.id;
-    this._name = props.name;
+    super()
+    this.id = props.id
+    this._name = props.name
   }
 
   get name(): string {
-    return this._name;
+    return this._name
   }
 }

@@ -1,21 +1,21 @@
-import { Request } from "express";
+import { Request } from 'express'
 
 export interface Dictionary<T> {
-  [key: string]: T;
+  [key: string]: T
 }
 
-export type ParamsDictionary = Dictionary<string>;
+export type ParamsDictionary = Dictionary<string>
 
 interface TypedRequest<T extends ParamsDictionary> extends Request {
-  params: T;
+  params: T
 }
 
 interface TypedRequestBody<T> extends Request {
-  body: T;
+  body: T
 }
 
 interface TypedRequestCookie<C> extends Request {
-  cookies: C;
+  cookies: C
 }
 
-export { TypedRequest, TypedRequestBody, TypedRequestCookie };
+export { TypedRequest, TypedRequestBody, TypedRequestCookie }

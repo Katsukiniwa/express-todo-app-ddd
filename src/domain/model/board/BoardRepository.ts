@@ -1,6 +1,6 @@
-import { Board } from "./Board";
+import { Board } from './Board'
 
 export interface BoardRepository {
-  findById(id: number): Promise<Board | null>;
-  store(board: Board): Promise<void>;
+  findById(id: number): Promise<Board | null>
+  store(board: Board): Promise<void>
 }

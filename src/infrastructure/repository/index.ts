@@ -1,1 +1,1 @@
-export * from "./PrismaBoardRepository";
+export * from './PrismaBoardRepository'

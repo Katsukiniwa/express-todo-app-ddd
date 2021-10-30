@@ -1,1 +1,1 @@
-export { boardRouter } from "./BoardRouter";
+export { boardRouter } from './BoardRouter'

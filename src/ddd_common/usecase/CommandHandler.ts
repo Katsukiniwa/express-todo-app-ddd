@@ -1,3 +1,3 @@
 export interface CommandHandler<C> {
-  handle(command: C): void;
+  handle(command: C): void
 }

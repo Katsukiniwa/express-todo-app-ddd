@@ -1,12 +1,12 @@
-import { PrismaClient } from ".prisma/client";
-import { GetBoardQueryHandler } from "../../usecase/query/GetBoardQueryHandler";
-import { BoardView } from "../../usecase/query/view/BoardView";
+import { PrismaClient } from '.prisma/client'
+import { GetBoardQueryHandler } from '../../usecase/query/GetBoardQueryHandler'
+import { BoardView } from '../../usecase/query/view/BoardView'
 
 export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
-  private prisma: PrismaClient;
+  private prisma: PrismaClient
 
   constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = new PrismaClient()
   }
 
   async handle(boardId: number): Promise<BoardView> {
@@ -18,33 +18,37 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
         tasks: {
           include: {
             assigned_user: true,
-          }
+          },
         },
         participants: {
           include: {
             user: true,
-          }
-        }
-      }
-    });
+          },
+        },
+      },
+    })
 
-    const taskList = prismaBoard.tasks.map(e => ({
+    const taskList = prismaBoard.tasks.map((e) => ({
       name: e.name,
-      assignedUser: { id: e.assigned_user.id, name: e.assigned_user.name, icon: e.assigned_user.icon },
+      assignedUser: {
+        id: e.assigned_user.id,
+        name: e.assigned_user.name,
+        icon: e.assigned_user.icon,
+      },
       deadline: e.deadline,
       point: e.point,
-    }));
+    }))
 
-    const activeMemberList = prismaBoard.participants.map(e => ({
+    const activeMemberList = prismaBoard.participants.map((e) => ({
       id: e.id,
       name: e.user.name,
       icon: e.user.icon,
-    }));
+    }))
 
     /**
      * TODO: ポイントの合計値という重要なロジックはクエリが担って良いのだろうか？(Read Model Updaterの出番)
      */
-    const pointSum = taskList.reduce((n, { point }) => n + point, 0);
+    const pointSum = taskList.reduce((n, { point }) => n + point, 0)
 
     return new BoardView({
       id: prismaBoard.id,
@@ -52,6 +56,6 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
       taskList,
       activeMemberList,
       pointSum,
-    });
+    })
   }
 }

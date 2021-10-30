@@ -1,6 +1,6 @@
-import { User } from "./User";
+import { User } from './User'
 
 export interface UserRepository {
-  findById(id: number): Promise<User>;
-  store(user: User): Promise<void>;
+  findById(id: number): Promise<User>
+  store(user: User): Promise<void>
 }
