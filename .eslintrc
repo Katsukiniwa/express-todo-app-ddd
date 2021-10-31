@@ -1,23 +1,27 @@
+// @link https://blog.ojisan.io/prettier-eslint-cli/
 // @link https://blog.ojisan.io/eslint-plugin-and-extend/
 // @link https://zenn.dev/januswel/articles/402774d76424e71ac906
+// @link https://teppeis.hatenablog.com/entry/2019/02/typescript-eslint
 
 {
   "root": true,
   "env": {
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "jest"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
+    // prettierは最後に記述する
     "prettier"
   ],
-  "plugins": [
-    "jest"
-  ],
   "parserOptions": {
-    "ecmaVersion": 2018,
     "sourceType": "module"
   },
   "rules": {
