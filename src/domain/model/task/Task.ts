@@ -43,6 +43,7 @@ export class Task extends Entity<Task> {
     super()
     this.id = props.id
     this._name = new TaskName(props.name)
+    this._content = props.content
     this._assignedUser = props.assignedUser
     this._deadline = props.deadline
     this._point = props.point
@@ -56,7 +57,7 @@ export class Task extends Entity<Task> {
     return this._content
   }
 
-  get assignedUser(): User {
+  get assignedUser(): User | null {
     return this._assignedUser
   }
 

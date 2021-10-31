@@ -24,4 +24,16 @@ export class User extends Aggregate<User> {
     this._icon = props.icon
     this._email = props.email
   }
+
+  get name(): string {
+    return this._name
+  }
+
+  get icon(): string {
+    return this._icon
+  }
+
+  get email(): string {
+    return this._email
+  }
 }

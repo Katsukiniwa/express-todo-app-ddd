@@ -19,6 +19,10 @@ export class CookieUserAuthenticationService
       },
     })
 
+    if (prismaUser == null) {
+      throw new Error('user not found')
+    }
+
     const result = bcrypt.compareSync(userIdentity, prismaUser.hashed_password)
 
     if (result) {

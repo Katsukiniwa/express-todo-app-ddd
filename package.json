@@ -4,16 +4,16 @@
   "license": "MIT",
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
-      "npx eslint . --fix",
-      "npx prettier --write ."
+      "npm run format",
+      "npm run eslint"
     ]
   },
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/app.ts",
-    "eslint": "eslint",
-    "lint:fix": "eslint --fix 'src/**/*.ts' && prettier --write 'src/**/*.ts'",
+    "eslint": "eslint 'src/**/*.ts'",
     "eslint:fix": "eslint --fix 'src/**/*.ts'",
+    "format": "eslint --fix 'src/**/*.ts' && prettier --write 'src/**/*.ts'",
     "lint-staged": "lint-staged",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",

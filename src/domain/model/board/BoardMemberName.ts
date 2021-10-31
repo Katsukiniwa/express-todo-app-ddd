@@ -9,5 +9,7 @@ export class BoardMemberName extends ValueObject<BoardMemberName> {
     if (name.length < 5 || name.length > 100) {
       throw new Error('ボード名の長さが不正です')
     }
+
+    this.name = name
   }
 }

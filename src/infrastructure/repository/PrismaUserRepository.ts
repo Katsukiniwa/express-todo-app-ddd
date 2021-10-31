@@ -16,6 +16,10 @@ export class PrismaUserRepository implements UserRepository {
       },
     })
 
+    if (prismaUser == null) {
+      throw new Error('user not found')
+    }
+
     return new User({
       id: prismaUser.id,
       name: prismaUser.name,

@@ -15,7 +15,7 @@ const controller = new BoardController(
   new PrismaUserRepository()
 )
 
-boardRouter.use((request, response, next) => {
+boardRouter.use((_request, _response, next) => {
   ;(async () => {
     /**
      * TODO: CookieUserAuthenticationService.authenticateFromを呼び出す

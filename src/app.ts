@@ -5,7 +5,7 @@ const app = express()
 
 app.use(boardRouter)
 
-app.get('/', (request, response) => {
+app.get('/', (_request, response) => {
   return response.json({ message: 'Hello World' })
 })
 
