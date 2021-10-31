@@ -2,16 +2,24 @@
   "name": "express-todo-app-ddd",
   "version": "0.1.0",
   "license": "MIT",
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "npx eslint . --fix",
+      "npx prettier --write ."
+    ]
+  },
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/app.ts",
-    "lint-fix": "eslint --fix 'src/**/*.ts' && prettier --write 'src/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts' && prettier --write 'src/**/*.ts'",
+    "lint-staged": "lint-staged",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:seed": "ts-node prisma/seed.ts",
     "serve": "node dist/app.js",
     "start": "npm run serve",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "^3.2.1",
@@ -40,6 +48,7 @@
     "concurrently": "6.3.0",
     "eslint": "8.0.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.2.2",
     "husky": "^7.0.4",
     "jest": "27.3.0",
     "lint-staged": "^11.2.6",
