@@ -2,6 +2,7 @@ import { Aggregate } from '../../../ddd_common/domain/AggregateRoot'
 import { Task } from '../task/Task'
 import { User } from '../user/User'
 import { BoardName } from './BoardName'
+import { Owner } from './Owner'
 
 export interface BoardProps {
   id: number | null
@@ -9,6 +10,7 @@ export interface BoardProps {
   activeMemberIdList: number[]
   invitationMemberIdList: number[]
   tasks: Task[]
+  owner: Owner
 }
 
 /**
@@ -29,7 +31,12 @@ export class Board extends Aggregate<Board> {
    */
   private _invitationMemberIdList: number[]
 
+  /**
+   * ボード内のタスク一覧
+   */
   private _tasks: Task[]
+
+  private _owner: Owner
 
   constructor(props: BoardProps) {
     super()
@@ -38,6 +45,7 @@ export class Board extends Aggregate<Board> {
     this._activeMemberIdList = props.activeMemberIdList
     this._invitationMemberIdList = props.invitationMemberIdList
     this._tasks = props.tasks
+    this._owner = props.owner
   }
 
   get name(): BoardName {
