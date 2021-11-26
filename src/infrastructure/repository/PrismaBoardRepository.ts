@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { Board } from '../../domain/model/board/Board'
 import { BoardRepository } from '../../domain/model/board/BoardRepository'
+import { Owner } from '../../domain/model/board/Owner'
 import { Task } from '../../domain/model/task/Task'
 import { User } from '../../domain/model/user/User'
 
@@ -54,6 +55,12 @@ export class PrismaBoardRepository implements BoardRepository {
           point: e.point,
           deadline: e.deadline,
         })
+      }),
+      // TODO: OwnerをDB側で保存できていないので後で実装する
+      owner: new Owner({
+        id: 1,
+        name: 'Tom',
+        icon: 'https://example.com',
       }),
     })
   }

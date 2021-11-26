@@ -32,16 +32,27 @@ export class PrismaGetBoardQueryHandler implements GetBoardQueryHandler {
       throw new Error('user not found')
     }
 
-    const taskList = prismaBoard.tasks.map((e) => ({
-      name: e.name,
-      assignedUser: {
-        id: e.assigned_user.id,
-        name: e.assigned_user.name,
-        icon: e.assigned_user.icon,
-      },
-      deadline: e.deadline,
-      point: e.point,
-    }))
+    const taskList = prismaBoard.tasks.map((e) => {
+      if (e.assigned_user == null) {
+        return {
+          name: e.name,
+          assignedUser: null,
+          deadline: e.deadline,
+          point: e.point,
+        }
+      } else {
+        return {
+          name: e.name,
+          assignedUser: {
+            id: e.assigned_user.id,
+            name: e.assigned_user.name,
+            icon: e.assigned_user.icon,
+          },
+          deadline: e.deadline,
+          point: e.point,
+        }
+      }
+    })
 
     const activeMemberList = prismaBoard.participants.map((e) => ({
       id: e.id,

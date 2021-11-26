@@ -64,6 +64,10 @@ export class Board extends Aggregate<Board> {
     return this._tasks
   }
 
+  get owner(): Owner {
+    return this._owner
+  }
+
   public changeName(newName: string): void {
     this._name = new BoardName(newName)
   }

@@ -1,6 +1,6 @@
 interface Task {
   name: string
-  assignedUser: Member
+  assignedUser: Member | null
   deadline: Date
   point: number
 }
