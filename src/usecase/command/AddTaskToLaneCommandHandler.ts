@@ -1,6 +1,6 @@
 import { CommandHandler } from '../../ddd_common/usecase/CommandHandler'
 import { BoardRepository } from '../../domain/model/board/BoardRepository'
-import { Task } from '../../domain/model/task/Task'
+// import { Task } from '../../domain/model/task/Task'
 import { AddTaskToLaneCommand } from './AddTaskToLaneCommand'
 
 export class AddTaskToLaneCommandHandler

@@ -34,6 +34,7 @@ export class CreateBoardCommandHandler
       name: command.name,
       owner: new Owner({ id: owner.id, name: owner.name, icon: owner.icon }),
       tasks: [],
+      lanes: [],
       activeMemberIdList: [],
       invitationMemberIdList: [],
     })
