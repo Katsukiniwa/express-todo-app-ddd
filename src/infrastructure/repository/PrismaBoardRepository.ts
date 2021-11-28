@@ -56,6 +56,8 @@ export class PrismaBoardRepository implements BoardRepository {
           deadline: e.deadline,
         })
       }),
+      // TODO: lanesのテーブルを作成してから実装する
+      lanes: [],
       // TODO: OwnerをDB側で保存できていないので後で実装する
       owner: new Owner({
         id: 1,

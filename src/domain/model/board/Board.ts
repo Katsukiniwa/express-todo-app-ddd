@@ -12,7 +12,7 @@ export interface BoardProps {
   invitationMemberIdList: number[]
   tasks: Task[]
   owner: Owner
-  // lanes: Lane[]
+  lanes: Lane[]
 }
 
 /**
@@ -40,7 +40,7 @@ export class Board extends Aggregate<Board> {
 
   private _owner: Owner
 
-  // private _lanes: Lane[]
+  private _lanes: Lane[]
 
   constructor(props: BoardProps) {
     super()
@@ -50,7 +50,7 @@ export class Board extends Aggregate<Board> {
     this._invitationMemberIdList = props.invitationMemberIdList
     this._tasks = props.tasks
     this._owner = props.owner
-    // this._lanes = props.lanes
+    this._lanes = props.lanes
   }
 
   get name(): BoardName {
@@ -73,9 +73,9 @@ export class Board extends Aggregate<Board> {
     return this._owner
   }
 
-  // get lanes(): Lane[] {
-  //   return this._lanes
-  // }
+  get lanes(): Lane[] {
+    return this._lanes
+  }
 
   public changeName(newName: string): void {
     this._name = new BoardName(newName)
