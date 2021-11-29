@@ -31,6 +31,7 @@ model lanes {
   id         Int      @id @default(autoincrement())
   board_id   Int
   name       String
+  cover_image String
   board      boards   @relation(fields: [board_id], references: [id])
   tasks      tasks[]
   created_at DateTime @default(now()) @db.Timestamp(6)

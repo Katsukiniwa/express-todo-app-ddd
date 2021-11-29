@@ -4,6 +4,7 @@ import { Task } from '../task/Task'
 export interface LaneProps {
   id: number | null
   name: string
+  coverImage: string
   tasks: Task[]
 }
 
@@ -15,6 +16,7 @@ export interface LaneProps {
 export class Lane extends Entity<Lane> {
   public readonly id: number | null
   private _name: string
+  private _coverImage: string
   private _tasks: Task[]
 
   constructor(props: LaneProps) {
@@ -22,11 +24,16 @@ export class Lane extends Entity<Lane> {
 
     this.id = props.id
     this._name = props.name
+    this._coverImage = props.coverImage
     this._tasks = props.tasks
   }
 
   get name(): string {
     return this._name
+  }
+
+  get coverImage(): string {
+    return this._coverImage
   }
 
   get tasks(): Task[] {
