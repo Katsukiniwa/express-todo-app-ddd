@@ -96,6 +96,12 @@ export class PrismaBoardRepository implements BoardRepository {
             content: e.content,
             deadline: e.deadline,
             point: e.point,
+            lane: {
+              connect: {
+                // TODO: 後でレーンとの紐付けは実装する
+                id: 1,
+              },
+            },
           },
         }
       })
