@@ -12,6 +12,7 @@ model boards {
   name         String         @unique
   created_at   DateTime       @default(now()) @db.Timestamp(6)
   updated_at   DateTime       @default(now()) @db.Timestamp(6)
+  lanes        lanes[]
   tasks        tasks[]
   participants participants[]
 }
@@ -26,9 +27,20 @@ model participants {
   user       users    @relation(fields: [user_id], references: [id])
 }
 
+model lanes {
+  id         Int      @id @default(autoincrement())
+  board_id   Int
+  name       String
+  board      boards   @relation(fields: [board_id], references: [id])
+  tasks      tasks[]
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+}
+
 model tasks {
   id               Int        @id @default(autoincrement())
   board_id         Int
+  lane_id          Int
   name             String
   content          String
   assigned_user_id Int
@@ -37,8 +49,9 @@ model tasks {
   created_at       DateTime   @default(now()) @db.Timestamp(6)
   updated_at       DateTime   @default(now()) @db.Timestamp(6)
   board            boards     @relation(fields: [board_id], references: [id])
+  lane             lanes      @relation(fields: [lane_id], references: [id])
   labeling         labeling[]
-  assigned_user    users?      @relation(fields: [assigned_user_id], references: [id])
+  assigned_user    users?     @relation(fields: [assigned_user_id], references: [id])
 }
 
 model labels {
