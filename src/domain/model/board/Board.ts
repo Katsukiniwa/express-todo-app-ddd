@@ -99,6 +99,14 @@ export class Board extends Aggregate<Board> {
     this._activeMemberIdList.push(userId)
   }
 
+  public findLaneById(laneId: number): Lane | undefined {
+    return this._lanes.find((lane) => lane.id === laneId)
+  }
+
+  public laneNameList(): string[] {
+    return this._lanes.map((lane) => lane.name)
+  }
+
   /**
    * ボードにタスクを追加するメソッド
    */
