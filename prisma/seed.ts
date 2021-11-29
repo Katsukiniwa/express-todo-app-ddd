@@ -1,19 +1,40 @@
 import { PrismaClient } from '@prisma/client'
+import bcryptjs from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
 async function main() {
+  const hashedPassword = await bcryptjs.hash('password', 10)
   const bob = await prisma.users.create({
     data: {
       name: 'bob',
       icon: 'https://example.con/bob-icon.png',
-      hashed_password: 'password',
+      hashed_password: hashedPassword,
       email: 'bob@example.com',
     },
   })
   const sampleBoard = await prisma.boards.create({
     data: {
       name: 'サンプルボード',
+      lanes: {
+        createMany: {
+          data: [
+            {
+              name: 'todo',
+              cover_image: 'https://example.com/boards/1/cover-image-todo.jpeg',
+            },
+            {
+              name: 'doing',
+              cover_image:
+                'https://example.com/boards/1/cover-image-doing.jpeg',
+            },
+            {
+              name: 'done',
+              cover_image: 'https://example.com/boards/1/cover-image-done.jpeg',
+            },
+          ],
+        },
+      },
     },
   })
   await prisma.participants.create({
@@ -27,6 +48,9 @@ async function main() {
       board: sampleBoard,
     },
   })
+  if (!lane) {
+    throw new Error('fail')
+  }
   await prisma.tasks.create({
     data: {
       name: 'Fix CSS bug',
@@ -82,4 +106,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect()
+    console.log('success')
   })
