@@ -1,5 +1,6 @@
 import { Entity } from '../../../ddd_common/domain/Entity'
 import { Task } from '../task/Task'
+import { User } from '../user/User'
 
 export interface LaneProps {
   id: number | null
@@ -44,7 +45,7 @@ export class Lane extends Entity<Lane> {
    * ボード内でレーン名はユニークである必要があるというドメインルールのため
    * 第一引数に集約内に存在するレーンの名前のリスト、第二引数に新しい名前を渡す
    */
-  changeName(nameList: string[], newName: string): void {
+  public changeName(nameList: string[], newName: string): void {
     const sameName = nameList.find((name) => name === newName) // ①
     /**
      * FIXME: 同時に同じ名前のボードに変更された場合はこのバリデーションが発火しない
@@ -63,5 +64,35 @@ export class Lane extends Entity<Lane> {
       throw new Error('既にボード内に同じ名前のレーンが存在します')
     }
     this._name = newName // ③
+  }
+
+  public changeCoverImage(coverImage: string): void {
+    this._coverImage = coverImage
+  }
+
+  public addTask({
+    id,
+    taskName,
+    content,
+    assignedUser,
+    deadline,
+    point,
+  }: {
+    id: null
+    taskName: string
+    content: string
+    assignedUser: User | null
+    deadline: Date
+    point: number
+  }): void {
+    const task = new Task({
+      id,
+      name: taskName,
+      content,
+      assignedUser,
+      deadline,
+      point,
+    })
+    this._tasks.push(task)
   }
 }
