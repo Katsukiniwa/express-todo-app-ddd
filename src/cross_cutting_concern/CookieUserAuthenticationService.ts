@@ -1,5 +1,6 @@
 import { User } from '../domain/model/user/User'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import { UserAuthenticationService } from '../domain/service/UserAuthenticationService'
 import { PrismaClient } from '.prisma/client'
 
@@ -12,10 +13,10 @@ export class CookieUserAuthenticationService
     this.prisma = new PrismaClient()
   }
 
-  async authenticateFrom(userId: number, userIdentity: string): Promise<User> {
+  async authenticateFrom(email: string, password: string): Promise<User> {
     const prismaUser = await this.prisma.users.findUnique({
       where: {
-        id: userId,
+        email: email,
       },
     })
 
@@ -23,7 +24,7 @@ export class CookieUserAuthenticationService
       throw new Error('user not found')
     }
 
-    const result = bcrypt.compareSync(userIdentity, prismaUser.hashed_password)
+    const result = bcrypt.compareSync(password, prismaUser.hashed_password)
 
     if (result) {
       return new User({
@@ -33,7 +34,7 @@ export class CookieUserAuthenticationService
         email: prismaUser.email,
       })
     } else {
-      throw new Error('User not Found')
+      throw new Error('user not Found')
     }
   }
 
