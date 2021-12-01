@@ -1,6 +1,5 @@
 import { User } from '../domain/model/user/User'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 import { UserAuthenticationService } from '../domain/service/UserAuthenticationService'
 import { PrismaClient } from '.prisma/client'
 
