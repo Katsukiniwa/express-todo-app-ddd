@@ -10,7 +10,6 @@ export interface BoardProps {
   name: string
   activeMemberIdList: number[]
   invitationMemberIdList: number[]
-  tasks: Task[]
   owner: Owner
   lanes: Lane[]
 }
@@ -33,11 +32,6 @@ export class Board extends Aggregate<Board> {
    */
   private _invitationMemberIdList: number[]
 
-  /**
-   * ボード内のタスク一覧
-   */
-  private _tasks: Task[]
-
   private _owner: Owner
 
   private _lanes: Lane[]
@@ -48,7 +42,6 @@ export class Board extends Aggregate<Board> {
     this._name = new BoardName(props.name)
     this._activeMemberIdList = props.activeMemberIdList
     this._invitationMemberIdList = props.invitationMemberIdList
-    this._tasks = props.tasks
     this._owner = props.owner
     this._lanes = props.lanes
   }
@@ -63,10 +56,6 @@ export class Board extends Aggregate<Board> {
 
   get invitationMemberIdList(): number[] {
     return this._invitationMemberIdList
-  }
-
-  get tasks(): Task[] {
-    return this._tasks
   }
 
   get owner(): Owner {
@@ -111,14 +100,15 @@ export class Board extends Aggregate<Board> {
    * ボードにタスクを追加するメソッド
    */
   public addTask({
-    id,
+    laneId,
     taskName,
     content,
     assignedUser,
     deadline,
     point,
   }: {
-    id: null
+    laneId: number
+    taskId: null
     taskName: string
     content: string
     assignedUser: User | null
@@ -126,13 +116,15 @@ export class Board extends Aggregate<Board> {
     point: number
   }): void {
     const task = new Task({
-      id,
+      id: null,
       name: taskName,
       content,
       assignedUser,
       deadline,
       point,
     })
-    this._tasks.push(task)
+    const lane = this.lanes.find((l) => l.id === laneId)
+    if (!lane) throw new Error('lane not found')
+    lane.addTask(task)
   }
 }

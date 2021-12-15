@@ -70,29 +70,7 @@ export class Lane extends Entity<Lane> {
     this._coverImage = coverImage
   }
 
-  public addTask({
-    id,
-    taskName,
-    content,
-    assignedUser,
-    deadline,
-    point,
-  }: {
-    id: null
-    taskName: string
-    content: string
-    assignedUser: User | null
-    deadline: Date
-    point: number
-  }): void {
-    const task = new Task({
-      id,
-      name: taskName,
-      content,
-      assignedUser,
-      deadline,
-      point,
-    })
+  public addTask(task: Task): void {
     this._tasks.push(task)
   }
 }
