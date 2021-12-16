@@ -1,6 +1,5 @@
 import { Entity } from '../../../ddd_common/domain/Entity'
 import { Task } from '../task/Task'
-import { User } from '../user/User'
 
 export interface LaneProps {
   id: number | null
